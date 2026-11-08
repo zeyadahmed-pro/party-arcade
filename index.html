@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10111b">
+  <meta name="description" content="Fifteen quick-play multiplayer games. Make a room, invite your crew, and play together.">
+  <meta name="application-name" content="Party Arcade">
+  <meta property="og:title" content="Party Arcade: Play together">
+  <meta property="og:description" content="Fifteen quick-play multiplayer games for your crew. Private rooms, no downloads.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Party Arcade — Play together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/touch.css">
+  <link rel="stylesheet" href="/theme.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/vendor/phaser/phaser.min.js" defer></script>
+  <script src="/game-runtime.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <noscript><p style="padding:24px;text-align:center">Party Arcade needs JavaScript turned on to play.</p></noscript>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#home" id="brand-home" aria-label="Party Arcade home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>party<span class="brand-light">arcade</span></span></a>
+    <nav class="top-links"><a href="#games" id="browse-link">Games</a><a href="#how-it-works">How to play</a></nav>
+    <div class="top-actions"><span class="online-indicator"><b></b> ONLINE NOW</span><button class="button button-ghost" id="open-join">Join a room <span class="arrow">↗</span></button></div>
+  </header>
+
+  <main id="home-view">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="sparkle">✳</span> YOUR CREW. YOUR GAME. YOUR CALL.</div>
+        <h1>Good games.<br><span>Better together.</span></h1>
+        <p>Drop into a quick match with your favorite people. No downloads, no drama — just play.</p>
+        <div class="hero-cta"><button class="button button-primary" id="browse-games">Find your game <span>↓</span></button><button class="button button-secondary" id="hero-join"><span class="join-symbol">⌁</span> Join with code</button></div>
+        <div class="hero-footnote"><div class="avatar-stack"><span>J</span><span>M</span><span>A</span><span>+</span></div><span>Made for game nights<br><b>Up to 8 friends per room</b></span></div>
+      </div>
+      <div class="hero-art" aria-label="Colorful arcade illustration">
+        <div class="art-orbit orbit-a"></div><div class="art-orbit orbit-b"></div><div class="art-spark spark-a">✦</div><div class="art-spark spark-b">✳</div><div class="art-spark spark-c">✦</div>
+        <div class="art-board"><div class="art-board-top"><span class="mini-brand">✳ PARTY ARCADE</span><span class="live-pill"><b></b> LIVE</span></div><div class="art-game"><div class="art-court"><div class="court-mid"></div><div class="court-ball">●</div><div class="court-player player-one">✦</div><div class="court-player player-two">✦</div><div class="court-player player-three">✦</div><div class="court-player player-four">✦</div></div><div class="art-score"><span>YOUR SQUAD</span><b>02 <i>:</i> 01</b></div></div><div class="art-players"><div class="tiny-avatar av-pink">J</div><div class="tiny-avatar av-blue">M</div><div class="tiny-avatar av-yellow">A</div><div class="tiny-avatar av-green">R</div><span>Squad is ready</span></div></div>
+        <div class="float-card float-left"><span class="float-icon">♟</span><span><b>15 games</b><small>Pick your next move</small></span></div><div class="float-card float-right"><span class="float-icon pink">⌁</span><span><b>Just friends</b><small>Private rooms, always</small></span></div>
+      </div>
+    </section>
+
+    <section class="games-section wrap" id="games">
+      <div class="section-heading"><div><div class="eyebrow">THE ARCADE</div><h2>Pick your kind of fun<span class="period">.</span></h2><p>From friendly rivalries to absolute chaos.</p></div><div class="game-count"><span>15</span> games to play</div></div>
+      <div class="filter-row" id="filters"><button class="filter active" data-filter="all">All games <span>15</span></button><button class="filter" data-filter="action">Action</button><button class="filter" data-filter="sports">Sports</button><button class="filter" data-filter="strategy">Strategy</button><button class="filter" data-filter="chill">Chill</button><button class="filter" data-filter="mind">Mind</button></div>
+      <div class="game-grid" id="game-grid"></div>
+    </section>
+
+    <section class="how-section wrap" id="how-it-works"><div class="how-head"><div class="eyebrow">NO SETUP. ALL PLAY.</div><h2>Three steps to game night.</h2></div><div class="steps"><article><span class="step-num">01</span><div class="step-icon">▦</div><h3>Pick a game</h3><p>Choose from the arcade. There’s something for every kind of player.</p></article><article><span class="step-num">02</span><div class="step-icon lilac">⌁</div><h3>Make a room</h3><p>Get your private three-digit code and send it to your friends.</p></article><article><span class="step-num">03</span><div class="step-icon mint">✦</div><h3>Make it a night</h3><p>Play together, talk a little trash, and run it back.</p></article></div></section>
+    <section class="bottom-banner wrap"><div><div class="eyebrow">YOUR PEOPLE ARE ONE CODE AWAY</div><h2>Game on, together.</h2></div><button class="button button-primary" id="banner-start">Start a room <span>↗</span></button><div class="banner-orb"></div></section>
+  </main>
+
+  <main id="room-view" class="room-view wrap hidden">
+    <div class="room-header"><button class="back-link" id="leave-room">← <span>Back to arcade</span></button><div class="room-title"><span class="room-status-dot"></span><span id="room-game-label">Waiting room</span><span class="room-divider">/</span><button class="room-code" id="copy-code" title="Copy room code">ROOM <b id="room-code-label">---</b><span class="copy-glyph">▢</span></button></div><div class="room-header-right"><span class="room-players-count" id="room-player-count">1 / 8 players</span><button class="button button-primary button-small" id="start-game">Start game <span>→</span></button></div></div>
+    <div class="room-layout"><section class="play-panel"><div class="game-stage" id="game-stage"><div class="stage-empty" id="stage-empty"><div class="stage-mark">✳</div><span class="stage-kicker">THE GAME IS YOURS</span><h2>Ready when you are.</h2><p>Share your room code, then choose a game to get started.</p><button id="stage-pick-game" class="button button-primary">Choose a game</button></div><div id="phaser-host"></div><div class="stage-topbar hidden" id="stage-topbar"><span id="stage-game-name">Game</span><span id="stage-state-label">IN PROGRESS</span><button class="stage-btn" id="stage-mute" data-on="1" title="Sound" aria-label="Sound">🔊</button><button class="stage-fs" id="stage-fs" title="Full screen" aria-label="Full screen">⤢</button><button id="stage-exit" title="Exit game">×</button></div><div class="stage-hud hidden" id="stage-hud"><span id="game-instructions">Move with WASD · Click to interact</span><span id="game-score"></span></div><div class="archery-control hidden" id="archery-control"><label for="air-suspension">AIR SUSPENSION <b id="air-value">1.0</b></label><input id="air-suspension" type="range" min="0" max="3" step="0.1" value="1"></div><div class="game-over hidden" id="game-over"><div class="go-card"><div class="eyebrow">MATCH OVER</div><h3 id="go-winner">Winner</h3><div id="go-scores"></div><div class="go-actions"><button id="go-again" class="button button-primary">Play again</button><button id="go-lobby" class="button button-ghost">Back to room</button></div><p id="go-note"></p></div></div><div class="touch-controls hidden" id="touch-controls"><div class="touch-pad"><button data-virtual="up" aria-label="Move up">↑</button><button data-virtual="left" aria-label="Move left">←</button><button data-virtual="down" aria-label="Move down">↓</button><button data-virtual="right" aria-label="Move right">→</button></div><button class="touch-action" data-virtual="fire" id="touch-action">THROW</button></div></div><div class="room-under"><div class="players-block"><div class="mini-heading">IN THIS ROOM <span id="in-room-count">1</span></div><div class="room-player-list" id="room-player-list"></div></div><div class="room-game-select"><div class="mini-heading">PLAYING</div><div class="selected-game"><span id="selected-game-emoji">⛳</span><span><b id="selected-game-name">Golf</b><small id="selected-game-subtitle">Waiting to start</small></span><button id="change-game" class="icon-button" title="Change game">⌄</button></div></div></div></section>
+      <aside class="chat-panel"><div class="chat-heading"><div><span class="chat-icon">⌁</span><b>Squad chat</b></div><span class="chat-live"><i></i> LIVE</span></div><div class="chat-room-tag"><span>ROOM CODE</span><b id="chat-room-code">---</b></div><div class="chat-messages" id="chat-messages"><div class="chat-welcome"><span>✳</span><b>Room chat is open</b><small>Say hi while everyone joins.</small></div></div><form class="chat-form" id="chat-form"><input id="chat-input" maxlength="220" placeholder="Message your squad…" autocomplete="off"><button aria-label="Send message" type="submit">↗</button></form><div class="chat-footnote">Keep it friendly. Keep it fun.</div></aside></div>
+  </main>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop"><section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Close">×</button><div class="modal-icon" id="modal-icon">✳</div><div class="eyebrow" id="modal-eyebrow">LET’S GET PLAYING</div><h2 id="modal-title">Create your room</h2><p id="modal-description">Choose your name and we’ll set up a private room.</p><form id="room-form"><div class="char-wrap"><div class="mini-label">YOUR CHARACTER</div><div id="char-picker" class="char-picker"></div><div id="char-name" class="char-name"></div></div><label for="player-name">YOUR DISPLAY NAME</label><input id="player-name" maxlength="18" placeholder="e.g. PixelPanda" autocomplete="nickname"><div id="create-fields"><label for="game-select">PICK A GAME</label><select id="game-select"></select></div><div id="join-fields" class="hidden"><label for="room-code-input">THREE-DIGIT ROOM CODE</label><input id="room-code-input" inputmode="numeric" pattern="[0-9]{3}" maxlength="3" placeholder="000"></div><div class="modal-error" id="modal-error"></div><button type="submit" class="button button-primary modal-submit" id="modal-submit">Create private room <span>→</span></button></form><div class="modal-foot">No account needed <span>·</span> Just your friends</div></section></div>
+  <div class="toast hidden" id="toast"></div>
+  <footer class="footer wrap"><a class="brand footer-brand" href="#home"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>party<span class="brand-light">arcade</span></span></a><span>Good games are better together.</span><span>Built for your next game night <b>✳</b></span></footer>
+</body>
+</html>

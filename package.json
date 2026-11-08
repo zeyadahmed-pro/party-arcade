@@ -1,0 +1,23 @@
+{
+  "name": "party-arcade",
+  "version": "1.7.0",
+  "private": true,
+  "description": "Party Arcade: a multiplayer browser game lounge built with Phaser 3 and Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test/logic.js && node test/smoke.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "phaser": "^3.90.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
